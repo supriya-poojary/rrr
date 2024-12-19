@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Online Registration Form</h1>
+    
+    <!-- Registration Form -->
+    <form id="registrationForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- Success Popup -->
+    <div id="popup" class="popup">
+      <p>Registration Successful!</p>
+      <button id="closePopup">Close</button>
+    </div>
+
+    <!-- Display submitted details -->
+    <div id="submittedDetails" class="submitted-details"></div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Handle form submission
+      $('#registrationForm').submit(function(event) {
+        event.preventDefault();
+
+        // Gather form data
+        var formData = {
+          name: $('#name').val(),
+          email: $('#email').val(),
+          phone: $('#phone').val(),
+          dob: $('#dob').val(),
+          gender: $('#gender').val(),
+          message: $('#message').val()
+        };
+
+        // Show success popup
+        $('#popup').fadeIn();
+
+        // Hide the popup after 2 seconds
+        setTimeout(function() {
+          $('#popup').fadeOut();
+        }, 2000);
+
+        // Display submitted details below the form
+        var detailsHtml = `
+          <h2>Submitted Details</h2>
+          <p><strong>Name:</strong> ${formData.name}</p>
+          <p><strong>Email:</strong> ${formData.email}</p>
+          <p><strong>Phone:</strong> ${formData.phone}</p>
+          <p><strong>Date of Birth:</strong> ${formData.dob}</p>
+          <p><strong>Gender:</strong> ${formData.gender}</p>
+          <p><strong>Message:</strong> ${formData.message}</p>
+        `;
+        $('#submittedDetails').html(detailsHtml).fadeIn();
+      });
+
+      // Close popup when button is clicked
+      $('#closePopup').click(function() {
+        $('#popup').fadeOut();
+      });
+    });
+  </script>
+</body>
+</html>
